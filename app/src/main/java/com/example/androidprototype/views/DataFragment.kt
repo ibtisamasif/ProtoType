@@ -7,6 +7,7 @@ import com.example.androidprototype.adapters.PersistedDataAdapter
 import com.example.androidprototype.databinding.FragmentDataBinding
 import com.example.androidprototype.viewmodels.DataViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,11 +24,10 @@ class DataFragment : PrototypeBaseFragment<FragmentDataBinding>() {
         binding.rvPersistedData.adapter = adapter
         viewModel.fetchData()
 
-//        lifecycleScope.launch(Dispatchers.IO) {
-//            // We need this delay because currently it's so fast that the observer misses it.
-//            delay(100L)
-//            viewModel.fetchData()
-//        }
+        lifecycleScope.launch(Dispatchers.IO) {
+            delay(100L)
+            viewModel.fetchData()
+        }
     }
 
     private fun populateData(list: List<String>) {
