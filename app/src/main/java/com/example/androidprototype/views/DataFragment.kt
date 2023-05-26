@@ -39,7 +39,6 @@ class DataFragment : PrototypeBaseFragment<FragmentDataBinding>() {
             viewModel.storeData(binding.etAddData.text.toString())
         }
         binding.ivBack.setOnClickListener { activity?.onBackPressed() }
-        binding.tvBack.setOnClickListener { activity?.onBackPressed() }
     }
 
     override fun setObservers(binding: FragmentDataBinding) {
