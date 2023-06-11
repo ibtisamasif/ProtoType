@@ -1,19 +1,28 @@
 package com.example.androidprototype.viewmodels
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.example.androidprototype.repos.MainRepo
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-class DataViewModel(private val repo: MainRepo): ViewModel() {
+class DataViewModel(private val repo: MainRepo) : ViewModel() {
     private val _validateInputSharedFlow = MutableSharedFlow<Boolean>()
     val validateInputSharedFlow = _validateInputSharedFlow.asSharedFlow()
 
     private val _fetchDataSharedFlow = MutableSharedFlow<List<String>>()
     val fetchDataSharedFlow = _fetchDataSharedFlow.asSharedFlow()
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            delay(100L)
+            fetchData()
+        }
+    }
 
     fun storeData(data: String) {
         viewModelScope.launch(Dispatchers.IO) {

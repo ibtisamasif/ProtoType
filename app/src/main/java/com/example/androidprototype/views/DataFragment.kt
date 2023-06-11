@@ -22,12 +22,6 @@ class DataFragment : PrototypeBaseFragment<FragmentDataBinding>() {
     override fun setUp(binding: FragmentDataBinding) {
         adapter = PersistedDataAdapter(arrayListOf())
         binding.rvPersistedData.adapter = adapter
-        viewModel.fetchData()
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            delay(100L)
-            viewModel.fetchData()
-        }
     }
 
     private fun populateData(list: List<String>) {
